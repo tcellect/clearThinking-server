@@ -10,6 +10,6 @@ const postSchema = mongoose.Schema({
     }
 })
 
-const BiasSentace = mongoose.model("biasSentace", postSchema);
+const BiasSentence = mongoose.model("biasSentace", postSchema);
 
-export default BiasSentace;
+export default BiasSentence;

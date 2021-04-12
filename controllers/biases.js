@@ -1,4 +1,4 @@
-import BiasSentance from "../models/biasSentance.js"
+import BiasSentence from "../models/BiasSentence.js"
 
 //
 // TODO: find a way to assess biases (the simplest ones) in received text and save it with flags for future rendering
@@ -9,7 +9,7 @@ import BiasSentance from "../models/biasSentance.js"
 // then put it between <b></b>
 // TODO: find out if the whole sentace is imperative or not
 // TODO: find out a way to include all possible words and combinations in a samplespace
-
+// TODO: current solution works only for single words. Find a way to include rest of the samples
 const samplesImperative = ["should", "ought-to", "must", "shall", "will", "have to", "have got to", "need to", "be obliged to", "be compelled to"]
 
 const findBiasShouldStatements = (text) => {
@@ -41,16 +41,19 @@ const findBiasAllOrNothing = (text) => {
 
 export const getBiases = async (req, res) =>  { 
     try {
-        const biaseSentances = await BiasSentance.find()
-        res.status(200).json(biaseSentances)
+        const BiasSentences = await BiasSentence.find()
+        res.status(200).json(BiasSentences)
     }
     catch (error) {
         res.status(404).json({message : error.message})
     }
 }
+
+// TODO: find a way to scale bias checking for multiple biases
+// TODO: finda a way to scale bias checking for multimple languages
 export const createBias =  async (req, res) => {
     const post = findBiasShouldStatements(req.body);
-    const newBias = new BiasSentance(post)
+    const newBias = new BiasSentence(post)
     console.log("server got this", newBias)
     try {
         await newBias.save()
