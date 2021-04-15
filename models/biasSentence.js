@@ -6,10 +6,8 @@ const postSchema = mongoose.Schema({
     biasNormalized: String,
     createdAt: {
         type: Date,
-        default: new Date()
-    }
-})
+        default: new Date(),
+    },
+});
 
-const BiasSentence = mongoose.model("biasSentace", postSchema);
-
-export default BiasSentence;
+export default mongoose.model("biasSentace", postSchema);

@@ -15,10 +15,10 @@ const auth = async (req, res, next) => {
             decodedData = jwt.verify(token);
             req.userId = decodedData?.sub;
         }
-        next()
+        next();
     } catch (error) {
         console.log(error);
     }
 };
 
-export default auth
+export default auth;
