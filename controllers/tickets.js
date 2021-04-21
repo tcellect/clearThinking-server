@@ -1,4 +1,4 @@
-import BiasSentence from "../models/BiasSentence.js"
+import Ticket from "../models/ticket.js"
 
 //
 // TODO: find a way to assess biases (the simplest ones) in received text and save it with flags for future rendering
@@ -39,10 +39,10 @@ const findBiasAllOrNothing = (text) => {
 
 }
 
-export const getBiases = async (req, res) =>  { 
+export const getTickets = async (req, res) =>  { 
     try {
-        const BiasSentences = await BiasSentence.find()
-        res.status(200).json(BiasSentences)
+        const ticket = await Ticket.find()
+        res.status(200).json(ticket)
     }
     catch (error) {
         res.status(404).json({message : error.message})
@@ -51,14 +51,16 @@ export const getBiases = async (req, res) =>  {
 
 // TODO: find a way to scale bias checking for multiple biases
 // TODO: finda a way to scale bias checking for multimple languages
-export const createBias =  async (req, res) => {
-    const post = findBiasShouldStatements(req.body);
-    const newBias = new BiasSentence(post)
-    console.log("server got this", newBias)
+// TODO: for now focus on creating tickets and better user expirience.
+export const createTicket =  async (req, res) => {
+    const post = req.body
+    const newTicket = new Ticket(post)
+    console.log("server got this", newTicket)
     try {
-        await newBias.save()
-        res.status(201).json(newBias)
+        await newTicket.save()
+        res.status(201).json(newTicket)
     } catch (error) {
+        console.log(error.message)
         res.status(409).json({message : error.message})
     }
 }
